@@ -11,17 +11,16 @@ export default function TodoList() {
     const [filter, setFilter] = useState(localStorage.getItem("filter") || "all");
     const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
 
-    // ✅ Load tasks from Django API
     useEffect(() => {
-        fetch(API_URL)
+        fetch(`${API_URL}/tasks`)
             .then(res => res.json())
             .then(data => {
-                console.log("Fetched tasks:", data);  // Check if the tasks are fetched correctly
+                console.log("Fetched tasks:", data);
                 setTasks(data);
             })
             .catch(err => {
                 console.error("Fetch error:", err);
-                alert("There was an issue fetching the tasks.");
+                alert(`There was an issue fetching the tasks: ${err.message}`);
             });
     }, []);
 
@@ -37,14 +36,14 @@ export default function TodoList() {
     const addTask = () => {
         if (task.trim() === "") return;
 
-        fetch(API_URL, {
+        fetch(`${API_URL}/tasks`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title: task, completed: false })
         })
-        .then(res => res.json())
-        .then(newTask => setTasks(prevTasks => [...prevTasks, newTask]))  // Corrected state update
-        .catch(err => console.error("Add task error:", err));
+            .then(res => res.json())
+            .then(newTask => setTasks(prevTasks => [...prevTasks, newTask]))
+            .catch(err => console.error("Add task error:", err));
 
         setTask("");
     };
@@ -60,16 +59,16 @@ export default function TodoList() {
     };
 
     const toggleTaskCompletion = (todo) => {
-        fetch(`${API_URL}${todo.id}/`, {
+        fetch(`${API_URL}/tasks/${todo.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...todo, completed: !todo.completed })
         })
-        .then(res => res.json())
-        .then(updatedTask => {
-            setTasks(tasks.map(t => (t.id === updatedTask.id ? updatedTask : t)));
-        })
-        .catch(err => console.error("Toggle error:", err));
+            .then(res => res.json())
+            .then(updatedTask => {
+                setTasks(tasks.map(t => (t.id === updatedTask.id ? updatedTask : t)));
+            })
+            .catch(err => console.error("Toggle error:", err));
     };
 
     const startEditing = (index) => {
@@ -86,27 +85,27 @@ export default function TodoList() {
         const todo = tasks[index];
         if (editingText.trim() === "") return;
 
-        fetch(`${API_URL}${todo.id}/`, {
+        fetch(`${API_URL}/tasks/${todo.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...todo, title: editingText })
         })
-        .then(res => res.json())
-        .then(updated => {
-            const updatedList = [...tasks];
-            updatedList[index] = updated;
-            setTasks(updatedList);
-            cancelEditing();
-        })
-        .catch(err => console.error("Save edit error:", err));
+            .then(res => res.json())
+            .then(updated => {
+                const updatedList = [...tasks];
+                updatedList[index] = updated;
+                setTasks(updatedList);
+                cancelEditing();
+            })
+            .catch(err => console.error("Save edit error:", err));
     };
 
     const deleteTask = (id) => {
-        fetch(`${API_URL}${id}/`, {
+        fetch(`${API_URL}/tasks/${id}`, {
             method: "DELETE"
         })
-        .then(() => setTasks(tasks.filter(t => t.id !== id)))
-        .catch(err => console.error("Delete error:", err));
+            .then(() => setTasks(tasks.filter(t => t.id !== id)))
+            .catch(err => console.error("Delete error:", err));
     };
 
     const filteredTasks = tasks.filter((t) => {
