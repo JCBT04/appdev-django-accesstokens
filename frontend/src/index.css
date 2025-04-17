@@ -1,0 +1,242 @@
+body {
+     font-family: Arial, sans-serif;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+     margin: 0;
+     background-color: #f8f9fa;
+     transition: background-color 0.3s, color 0.3s;
+ }
+ 
+ body.dark-mode {
+     background-color: #121212;
+     color: #ffffff;
+ }
+ 
+ .app-container {
+     text-align: center;
+     background: white;
+     padding: 20px;
+     border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     transition: background-color 0.3s, color 0.3s;
+     width: 400px;
+     height: 500px; 
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+ }
+ 
+ .dark-mode .app-container {
+     background: #1e1e1e;
+     color: #ffffff;
+ }
+ 
+ .command-bar {
+     display: flex;
+     gap: 10px;
+     margin-bottom: 10px;
+ }
+ 
+ .command-bar input {
+     flex: 1;
+     padding: 8px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+ }
+ 
+ .command-bar button {
+     padding: 8px 12px;
+     border: none;
+     border-radius: 4px;
+     background-color: #007bff;
+     color: white;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+ 
+ .command-bar button:hover {
+     background-color: #0056b3;
+ }
+ 
+ .filter-buttons {
+     display: flex;
+     gap: 10px;
+     margin-bottom: 10px;
+ }
+ 
+ .filter-buttons button {
+     flex: 1;
+     padding: 8px;
+     border: none;
+     border-radius: 4px;
+     background-color: #6c757d;
+     color: white;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+ 
+ .filter-buttons button.active {
+     background-color: #007bff;
+ }
+ 
+ .filter-buttons button:hover {
+     background-color: #5a6268;
+ }
+ 
+ .task-list-container {
+     flex-grow: 1;
+     overflow-y: auto;
+     padding-right: 5px; 
+ }
+ 
+ .task-list {
+     max-height: 300px; 
+     overflow-y: auto;
+     padding-bottom: 10px;
+ }
+ 
+ .task-card {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     margin-bottom: 10px;
+     background-color: #f8f9fa;
+     transition: background-color 0.3s, border-color 0.3s;
+ }
+ 
+ .dark-mode .task-card {
+     background-color: #2d2d2d;
+     border-color: #444;
+ }
+ 
+ .task-text {
+     cursor: pointer; 
+     flex-grow: 1;
+ }
+ 
+ .task-card.completed .task-text {
+     text-decoration: line-through;
+     color: #888;
+ }
+ 
+ .task-actions button {
+     padding: 5px 10px;
+     border: none;
+     border-radius: 4px;
+     background-color: #6c757d;
+     color: white;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+ 
+ .task-actions button:hover {
+     background-color: #5a6268;
+ }
+ 
+ .no-tasks {
+     color: #888;
+     font-style: italic;
+ }
+ 
+ footer {
+     margin-top: 10px;
+     font-size: 0.9em;
+     color: #666;
+ }
+ 
+ .dark-mode footer {
+     color: #aaa;
+ }
+ 
+ 
+ .task-list::-webkit-scrollbar {
+     width: 8px;
+ }
+ 
+ .task-list::-webkit-scrollbar-thumb {
+     background-color: #aaa;
+     border-radius: 4px;
+ }
+ 
+ .task-list::-webkit-scrollbar-track {
+     background: transparent;
+ }
+ 
+ .task-card {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     margin-bottom: 10px;
+     background-color: #f8f9fa;
+     transition: background-color 0.3s, border-color 0.3s;
+ }
+ 
+ .task-card.completed .task-text {
+     text-decoration: line-through;
+     color: #888;
+ }
+ 
+ .task-actions {
+     display: flex;
+     gap: 5px;
+ }
+ 
+ .task-actions button {
+     padding: 5px 8px;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+ 
+ .task-actions .edit-btn {
+     background-color: #ffc107;
+     color: black;
+ }
+ 
+ .task-actions .edit-btn:hover {
+     background-color: #e0a800;
+ }
+ 
+ .task-actions .remove-btn {
+     background-color: #dc3545;
+     color: white;
+ }
+ 
+ .task-actions .remove-btn:hover {
+     background-color: #c82333;
+ }
+ 
+ .task-actions .save-btn {
+     background-color: #28a745;
+     color: white;
+ }
+ 
+ .task-actions .save-btn:hover {
+     background-color: #218838;
+ }
+ 
+ .task-actions .cancel-btn {
+     background-color: #6c757d;
+     color: white;
+ }
+ 
+ .task-actions .cancel-btn:hover {
+     background-color: #5a6268;
+ }
+ 
+ .edit-input {
+     flex-grow: 1;
+     padding: 4px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+ }
+ 
