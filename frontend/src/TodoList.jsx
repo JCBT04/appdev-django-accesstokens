@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Use environment variable or fallback to production URL for API URL
-const API_URL = process.env.REACT_APP_API_URL || "https://appdev-django-accesstokens.onrender.com";
+const API_URL = process.env.REACT_APP_API_URL || "https://appdev-django-accesstokens.onrender.com/api/todo/";
 
 export default function TodoList() {
     const [tasks, setTasks] = useState([]);
