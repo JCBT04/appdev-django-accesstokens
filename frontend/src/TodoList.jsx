@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-// Use environment variable or fallback to production URL for API URL
-const API_URL = process.env.REACT_APP_API_URL || "https://appdev-django-accesstokens.onrender.com/api/todo/";
+// Updated API URL to point directly to /api/todo
+const API_URL = process.env.REACT_APP_API_URL || "https://appdev-django-accesstokens.onrender.com/api/todo";
 
 export default function TodoList() {
     const [tasks, setTasks] = useState([]);
@@ -12,8 +12,11 @@ export default function TodoList() {
     const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
 
     useEffect(() => {
-        fetch(`${API_URL}/tasks`)
-            .then(res => res.json())
+        fetch(`${API_URL}/`)
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP status ${res.status}`);
+                return res.json();
+            })
             .then(data => {
                 console.log("Fetched tasks:", data);
                 setTasks(data);
@@ -36,7 +39,7 @@ export default function TodoList() {
     const addTask = () => {
         if (task.trim() === "") return;
 
-        fetch(`${API_URL}/tasks`, {
+        fetch(`${API_URL}/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title: task, completed: false })
@@ -59,7 +62,7 @@ export default function TodoList() {
     };
 
     const toggleTaskCompletion = (todo) => {
-        fetch(`${API_URL}/tasks/${todo.id}`, {
+        fetch(`${API_URL}/${todo.id}/`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...todo, completed: !todo.completed })
@@ -85,7 +88,7 @@ export default function TodoList() {
         const todo = tasks[index];
         if (editingText.trim() === "") return;
 
-        fetch(`${API_URL}/tasks/${todo.id}`, {
+        fetch(`${API_URL}/${todo.id}/`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ...todo, title: editingText })
@@ -101,7 +104,7 @@ export default function TodoList() {
     };
 
     const deleteTask = (id) => {
-        fetch(`${API_URL}/tasks/${id}`, {
+        fetch(`${API_URL}/${id}/`, {
             method: "DELETE"
         })
             .then(() => setTasks(tasks.filter(t => t.id !== id)))
