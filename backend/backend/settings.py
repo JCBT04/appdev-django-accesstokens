@@ -135,7 +135,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",  # React frontend (local development)
     "http://localhost:5173",  # Deployed frontend
-    "https://jcbt04.github.io/appdev-todolist-fullstack/",  # Your GitHub Pages frontend URL
+    "https://appdev-django-accesstokens.vercel.app/",  # Your GitHub Pages frontend URL
 ]
 
 
