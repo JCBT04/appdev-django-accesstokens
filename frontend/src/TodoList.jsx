@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./index.css"; // make sure this is imported if you move styles to a separate file
 
 const BASE_URL = "https://appdev-django-accesstokens.onrender.com";
 const API_URL = `${BASE_URL}/api/todo`;
@@ -16,6 +15,7 @@ export default function TodoList() {
     const [password, setPassword] = useState("admin123");
     const [token, setToken] = useState(localStorage.getItem("token") || "");
 
+    // 🔐 Login and store token
     const login = async () => {
         const res = await fetch(`${BASE_URL}/api-token-auth/`, {
             method: "POST",
@@ -157,32 +157,109 @@ export default function TodoList() {
             <h2>To-Do List</h2>
 
             {!token ? (
-                <div className="login-container">
-                    <div className="login-card">
-                        <h3>🔐 Sign In</h3>
-                        <p className="login-subtitle">Access your tasks with your account</p>
-                        <input
-                            type="text"
-                            placeholder="👤 Username"
-                            className="login-input"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            placeholder="🔑 Password"
-                            className="login-input"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <button className="login-btn" onClick={login}>
-                            Login
-                        </button>
-                    </div>
+                <div className="login-form">
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button onClick={login}>Login</button>
                 </div>
             ) : (
                 <>
-                    {/* rest of the app continues here (no change) */}
+                    <div className="command-bar">
+                        <input
+                            type="text"
+                            placeholder="Add a new task..."
+                            value={task}
+                            onChange={(e) => setTask(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
+                        <button onClick={addTask}>Add Task</button>
+                        <button onClick={() => setDarkMode(!darkMode)}>
+                            {darkMode ? "🌙" : "🔆"}
+                        </button>
+                        <button onClick={() => {
+                            setToken("");
+                            localStorage.removeItem("token");
+                        }}>
+                            Logout
+                        </button>
+                    </div>
+
+                    <div className="filter-buttons">
+                        {["all", "completed", "pending"].map((type) => (
+                            <button
+                                key={type}
+                                className={filter === type ? "active" : ""}
+                                onClick={() => setFilter(type)}
+                            >
+                                {type.charAt(0).toUpperCase() + type.slice(1)}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="task-list-container">
+                        <div className="task-list">
+                            {filteredTasks.length === 0 ? (
+                                <p className="no-tasks">No tasks found. Add a new task!</p>
+                            ) : (
+                                filteredTasks.map((t, index) => (
+                                    <div key={t.id} className={`task-card ${t.completed ? "completed" : ""}`}>
+                                        <input
+                                            type="checkbox"
+                                            checked={t.completed}
+                                            onChange={() => toggleTaskCompletion(t)}
+                                        />
+                                        {editingIndex === index ? (
+                                            <input
+                                                type="text"
+                                                value={editingText}
+                                                onChange={(e) => setEditingText(e.target.value)}
+                                                onKeyDown={handleKeyDown}
+                                                className="edit-input"
+                                                autoFocus
+                                            />
+                                        ) : (
+                                            <span
+                                                className="task-text"
+                                                onClick={() => toggleTaskCompletion(t)}
+                                                style={{ textDecoration: t.completed ? "line-through" : "none" }}
+                                            >
+                                                {t.title}
+                                            </span>
+                                        )}
+                                        <div className="task-actions">
+                                            {editingIndex === index ? (
+                                                <>
+                                                    <button className="save-btn" onClick={() => saveEditing(index)}>
+                                                        Save
+                                                    </button>
+                                                    <button className="cancel-btn" onClick={cancelEditing}>
+                                                        Cancel
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <button className="edit-btn" onClick={() => startEditing(index)}>
+                                                    Edit
+                                                </button>
+                                            )}
+                                            <button className="remove-btn" onClick={() => deleteTask(t.id)}>
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
                 </>
             )}
 
