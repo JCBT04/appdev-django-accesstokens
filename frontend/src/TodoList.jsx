@@ -15,7 +15,6 @@ export default function TodoList() {
     const [password, setPassword] = useState("admin123");
     const [token, setToken] = useState(localStorage.getItem("token") || "");
 
-    // 🔐 Login and store token
     const login = async () => {
         const res = await fetch(`${BASE_URL}/api-token-auth/`, {
             method: "POST",
@@ -157,20 +156,26 @@ export default function TodoList() {
             <h2>To-Do List</h2>
 
             {!token ? (
-                <div className="login-form">
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button onClick={login}>Login</button>
+                <div className="login-container">
+                    <div className="login-card">
+                        <h3 className="login-title">🔐 Sign In</h3>
+                        <p className="login-subtitle">Access your tasks with your account</p>
+                        <input
+                            type="text"
+                            placeholder="👤 Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="login-input"
+                        />
+                        <input
+                            type="password"
+                            placeholder="🔑 Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="login-input"
+                        />
+                        <button onClick={login} className="login-btn">Login</button>
+                    </div>
                 </div>
             ) : (
                 <>
@@ -264,6 +269,64 @@ export default function TodoList() {
             )}
 
             <footer>Task Manager App © 2023</footer>
+
+            <style>
+                {`
+                .login-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 60vh;
+                    padding: 2rem;
+                }
+
+                .login-card {
+                    background-color: #ffffff;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                    width: 100%;
+                    max-width: 400px;
+                    text-align: center;
+                }
+
+                .login-title {
+                    margin-bottom: 0.5rem;
+                }
+
+                .login-subtitle {
+                    font-size: 0.9rem;
+                    color: #666;
+                    margin-bottom: 1.5rem;
+                }
+
+                .login-input {
+                    width: 100%;
+                    padding: 10px;
+                    margin: 0.5rem 0;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    font-size: 1rem;
+                }
+
+                .login-btn {
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #4f46e5;
+                    color: white;
+                    font-weight: bold;
+                    border: none;
+                    border-radius: 8px;
+                    margin-top: 1rem;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+
+                .login-btn:hover {
+                    background-color: #4338ca;
+                }
+                `}
+            </style>
         </div>
     );
 }
