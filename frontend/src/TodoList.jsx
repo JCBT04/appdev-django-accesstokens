@@ -175,10 +175,6 @@ export default function TodoList() {
                             className="login-input"
                         />
                         <button onClick={login} className="login-btn">Login</button>
-
-                        <footer style={{ marginTop: "2rem", fontSize: "0.9rem", color: "#666" }}>
-                            Task Manager App © 2023
-                        </footer>
                     </div>
                 </div>
             ) : (
@@ -271,6 +267,10 @@ export default function TodoList() {
                     </div>
                 </>
             )}
+
+            <footer style={{ marginTop: "2rem", fontSize: "0.9rem", color: "#666", textAlign: "center" }}>
+                Task Manager App © 2023
+            </footer>
         </div>
     );
 }
