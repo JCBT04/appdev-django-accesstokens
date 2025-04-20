@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./TodoList.css"; // make sure this is imported if you move styles to a separate file
+import "./index.css"; // make sure this is imported if you move styles to a separate file
 
 const BASE_URL = "https://appdev-django-accesstokens.onrender.com";
 const API_URL = `${BASE_URL}/api/todo`;
