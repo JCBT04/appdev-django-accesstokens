@@ -175,6 +175,10 @@ export default function TodoList() {
                             className="login-input"
                         />
                         <button onClick={login} className="login-btn">Login</button>
+
+                        <footer style={{ marginTop: "2rem", fontSize: "0.9rem", color: "#666" }}>
+                            Task Manager App © 2023
+                        </footer>
                     </div>
                 </div>
             ) : (
@@ -267,66 +271,6 @@ export default function TodoList() {
                     </div>
                 </>
             )}
-
-            <footer>Task Manager App © 2023</footer>
-
-            <style>
-                {`
-                .login-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    min-height: 60vh;
-                    padding: 2rem;
-                }
-
-                .login-card {
-                    background-color: #ffffff;
-                    padding: 2rem;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-                    width: 100%;
-                    max-width: 400px;
-                    text-align: center;
-                }
-
-                .login-title {
-                    margin-bottom: 0.5rem;
-                }
-
-                .login-subtitle {
-                    font-size: 0.9rem;
-                    color: #666;
-                    margin-bottom: 1.5rem;
-                }
-
-                .login-input {
-                    width: 100%;
-                    padding: 10px;
-                    margin: 0.5rem 0;
-                    border-radius: 8px;
-                    border: 1px solid #ccc;
-                    font-size: 1rem;
-                }
-
-                .login-btn {
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #4f46e5;
-                    color: white;
-                    font-weight: bold;
-                    border: none;
-                    border-radius: 8px;
-                    margin-top: 1rem;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
-                }
-
-                .login-btn:hover {
-                    background-color: #4338ca;
-                }
-                `}
-            </style>
         </div>
     );
 }
