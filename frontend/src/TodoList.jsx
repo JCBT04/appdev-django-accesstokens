@@ -271,62 +271,108 @@ export default function TodoList() {
             <footer>Task Manager App © 2023</footer>
 
             <style>
-                {`
-                .login-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    min-height: 60vh;
-                    padding: 2rem;
-                }
+{`
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+    }
 
-                .login-card {
-                    background-color: #ffffff;
-                    padding: 2rem;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-                    width: 100%;
-                    max-width: 400px;
-                    text-align: center;
-                }
+    .light-mode {
+        background-color: #f3f4f6;
+        color: #111827;
+    }
 
-                .login-title {
-                    margin-bottom: 0.5rem;
-                }
+    .dark-mode {
+        background-color: #1f2937;
+        color: #f9fafb;
+    }
 
-                .login-subtitle {
-                    font-size: 0.9rem;
-                    color: #666;
-                    margin-bottom: 1.5rem;
-                }
+    .app-container {
+        padding: 2rem;
+        min-height: 100vh;
+    }
 
-                .login-input {
-                    width: 100%;
-                    padding: 10px;
-                    margin: 0.5rem 0;
-                    border-radius: 8px;
-                    border: 1px solid #ccc;
-                    font-size: 1rem;
-                }
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        padding: 1rem;
+    }
 
-                .login-btn {
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #4f46e5;
-                    color: white;
-                    font-weight: bold;
-                    border: none;
-                    border-radius: 8px;
-                    margin-top: 1rem;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
-                }
+    .login-card {
+        background-color: var(--card-bg, #ffffff);
+        padding: 2.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
 
-                .login-btn:hover {
-                    background-color: #4338ca;
-                }
-                `}
-            </style>
+    .dark-mode .login-card {
+        background-color: #374151;
+    }
+
+    .login-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .login-subtitle {
+        font-size: 0.95rem;
+        color: #9ca3af;
+        margin-bottom: 1.5rem;
+    }
+
+    .login-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #d1d5db;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .login-input:focus {
+        border-color: #6366f1;
+    }
+
+    .dark-mode .login-input {
+        background-color: #1f2937;
+        color: #f9fafb;
+        border: 1px solid #4b5563;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #4f46e5;
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .login-btn:hover {
+        background-color: #4338ca;
+        transform: translateY(-1px);
+    }
+
+    .login-btn:active {
+        transform: scale(0.98);
+    }
+`}
+</style>
+
         </div>
     );
 }
